@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iron Hub Conexões | Pergolados e Conexões Modulares</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,700;0,9..40,900;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #111111;
+  --ink: #1f1f1f;
+  --muted: #6f706a;
+  --soft: #f6f3ed;
+  --cream: #fbfaf7;
+  --line: #e7e2d8;
+  --sand: #d8c6a3;
+  --white: #ffffff;
+  --shadow: 0 18px 45px rgba(17,17,17,.08);
+  --shadow-strong: 0 28px 70px rgba(17,17,17,.16);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+
+/* ── HEADER ── */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255,255,255,.96);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+  padding: 0 5.5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 72px;
+  gap: 24px;
+}
+
+.logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 26px;
+  letter-spacing: .12em;
+  color: var(--black);
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.logo small {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  letter-spacing: .3em;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-item > a {
+  display: block;
+  padding: 10px 14px;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--black);
+  transition: background .18s;
+  white-space: nowrap;
+}
+.nav-item > a:hover {
+  background: linear-gradient(180deg, transparent 55%, rgba(216,198,163,.5) 0);
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 2px solid var(--black);
+  min-width: 200px;
+  box-shadow: var(--shadow-strong);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all .2s ease;
+  z-index: 200;
+}
+.nav-item:hover .dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.dropdown a {
+  display: block;
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  transition: color .15s, background .15s;
+}
+.dropdown a:last-child { border-bottom: 0; }
+.dropdown a:hover { color: var(--black); background: var(--soft); }
+
+.btn-header {
+  background: var(--black);
+  color: #fff;
+  border: 0;
+  padding: 12px 20px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform .18s, box-shadow .18s;
+}
+.btn-header:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+.menu-toggle {
+  display: none;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative;
+  min-height: 90vh;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--black);
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #1a1c18 0%, #2d2f29 50%, #3a3a2a 100%);
+}
+.hero-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17,17,17,.15) 0%, rgba(17,17,17,.65) 100%);
+}
+
+/* placeholder for hero image */
+.hero-img-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.18);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 80px 5.5% 96px;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--sand);
+  display: block;
+  margin-bottom: 24px;
+}
+
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(64px, 10vw, 140px);
+  line-height: .92;
+  letter-spacing: .02em;
+  color: #fff;
+  margin-bottom: 40px;
+  text-wrap: balance;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 32px;
+  border: 1.5px solid rgba(255,255,255,.75);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: background .2s, border-color .2s;
+}
+.btn-outline-white:hover {
+  background: rgba(255,255,255,.12);
+  border-color: #fff;
+}
+.btn-solid-white {
+  display: inline-flex;
+  align-items: center;
+  padding: 16px 32px;
+  background: #fff;
+  color: var(--black);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  transition: background .2s;
+}
+.btn-solid-white:hover { background: var(--soft); }
+
+/* ── SECTION COMMONS ── */
+.section { padding: 88px 5.5%; }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 20px;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+.section-head h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 6vw, 80px);
+  line-height: .92;
+  letter-spacing: .03em;
+  color: var(--black);
+}
+.eyebrow {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 30px;
+  height: 1px;
+  background: currentColor;
+  opacity: .6;
+}
+.link-all {
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--black);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  white-space: nowrap;
+}
+
+/* ── CATEGORY BLOCKS (3 cols, Toja style) ── */
+.cat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--line);
+}
+
+.cat-block {
+  position: relative;
+  min-height: 520px;
+  overflow: hidden;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 36px;
+  cursor: pointer;
+}
+
+.cat-block-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.12);
+  font-weight: 700;
+}
+.cat-block-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(17,17,17,.1) 0%, rgba(17,17,17,.72) 100%);
+  transition: background .4s ease;
+}
+
+.cat-block:hover .cat-block-bg::after {
+  background: linear-gradient(180deg, rgba(17,17,17,.05) 0%, rgba(17,17,17,.82) 100%);
+}
+
+.cat-content {
+  position: relative;
+  z-index: 2;
+  transform: translateY(8px);
+  transition: transform .3s ease;
+}
+.cat-block:hover .cat-content { transform: translateY(0); }
+
+.cat-tag {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-bottom: 10px;
+}
+.cat-block h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 4vw, 56px);
+  line-height: .95;
+  letter-spacing: .04em;
+  color: #fff;
+  margin-bottom: 14px;
+}
+.cat-block p {
+  font-size: 14px;
+  color: rgba(255,255,255,.72);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  max-width: 280px;
+}
+.cat-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.4);
+  padding-bottom: 4px;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.cat-block:hover .cat-cta { opacity: 1; }
+
+/* ── PRODUCTS GRID ── */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--line);
+}
+
+.product-card {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-strong);
+  z-index: 2;
+  position: relative;
+}
+
+.product-img {
+  height: 260px;
+  background: var(--soft);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--line);
+}
+.product-img-placeholder {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(17,17,17,.28);
+  text-align: center;
+  padding: 20px;
+}
+.product-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .35s ease;
+}
+.product-card:hover .product-img img { transform: scale(1.05); }
+
+.product-body { padding: 22px 20px 24px; flex: 1; display: flex; flex-direction: column; }
+.product-cat {
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.product-body h4 {
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  color: var(--black);
+  margin-bottom: 8px;
+}
+.product-body p {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  flex: 1;
+}
+.product-price {
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--black);
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.product-actions { display: flex; gap: 8px; margin-top: 12px; }
+.btn-sm {
+  flex: 1;
+  padding: 10px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-align: center;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--black);
+  cursor: pointer;
+  transition: background .18s, border-color .18s;
+}
+.btn-sm:hover { background: var(--soft); }
+.btn-sm.primary {
+  background: var(--black);
+  border-color: var(--black);
+  color: #fff;
+}
+.btn-sm.primary:hover { background: #333; }
+
+/* ── QTS (Quality Trust Service) ── */
+.qts {
+  background: #fff;
+  padding: 88px 5.5%;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.qts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+}
+.qts-item { display: flex; flex-direction: column; gap: 16px; }
+.qts-icon {
+  width: 52px;
+  height: 52px;
+  background: var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.qts-icon svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 2; }
+.qts-item h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px;
+  letter-spacing: .04em;
+  color: var(--black);
+  line-height: 1;
+}
+.qts-item p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 300px; }
+
+/* ── DARK BAND ── */
+.dark-band {
+  background: var(--black);
+  padding: 96px 5.5%;
+  display: grid;
+  grid-template-columns: 1fr .85fr;
+  gap: 52px;
+  align-items: center;
+}
+.dark-band-text .eyebrow { color: var(--sand); }
+.dark-band-text .eyebrow::before { background: var(--sand); }
+.dark-band-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(46px, 6vw, 88px);
+  line-height: .92;
+  letter-spacing: .03em;
+  color: #fff;
+  margin: 12px 0 20px;
+}
+.dark-band-text p { font-size: 18px; color: rgba(255,255,255,.68); line-height: 1.7; margin-bottom: 32px; }
+.dark-band-img {
+  height: 480px;
+  background: #1f1f1f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.15);
+  font-weight: 700;
+  overflow: hidden;
+}
+.dark-band-img img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── APPLICATIONS ── */
+.applications {
+  background: var(--soft);
+  padding: 88px 5.5%;
+}
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1px;
+  background: var(--line);
+  margin-top: 40px;
+}
+.app-item {
+  background: #fff;
+  padding: 28px 16px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--black);
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .18s;
+  cursor: pointer;
+}
+.app-item:hover { background: var(--black); color: #fff; }
+
+/* ── CTA FINAL ── */
+.cta-final {
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  background: #1f211e;
+}
+.cta-final-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.1);
+  font-weight: 700;
+}
+.cta-final-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(17,17,17,.58);
+}
+.cta-final-content {
+  position: relative;
+  z-index: 2;
+  padding: 80px 5.5%;
+  max-width: 920px;
+}
+.cta-final .eyebrow { color: var(--sand); justify-content: center; }
+.cta-final .eyebrow::before { background: var(--sand); }
+.cta-final h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 8vw, 110px);
+  line-height: .9;
+  letter-spacing: .03em;
+  color: #fff;
+  margin: 16px 0 20px;
+}
+.cta-final p { font-size: 18px; color: rgba(255,255,255,.75); line-height: 1.65; margin-bottom: 36px; }
+
+/* ── INSTALADOR SECTION ── */
+.instalador {
+  background: var(--cream);
+  padding: 88px 5.5%;
+  border-top: 1px solid var(--line);
+}
+.instalador-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.instalador-text .eyebrow { color: var(--muted); }
+.instalador-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 5vw, 72px);
+  line-height: .92;
+  letter-spacing: .03em;
+  color: var(--black);
+  margin: 12px 0 18px;
+}
+.instalador-text p { font-size: 17px; color: var(--muted); line-height: 1.7; }
+
+.instalador-form {
+  background: #fff;
+  border: 1px solid var(--line);
+  padding: 36px;
+}
+.instalador-form h3 {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--black);
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
+.form-group label {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  border: 1px solid var(--line);
+  background: var(--soft);
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--black);
+  border-radius: 0;
+  width: 100%;
+  transition: border-color .18s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: var(--black);
+  background: #fff;
+}
+.form-group textarea { min-height: 100px; resize: vertical; }
+.btn-form {
+  width: 100%;
+  padding: 16px;
+  background: var(--black);
+  color: #fff;
+  border: 0;
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .18s;
+  font-family: 'DM Sans', sans-serif;
+}
+.btn-form:hover { background: #333; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--black);
+  padding: 56px 5.5% 36px;
+  color: rgba(255,255,255,.7);
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  margin-bottom: 28px;
+}
+.footer-logo-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: .12em;
+  color: #fff;
+}
+.footer-logo-sub {
+  font-size: 9px;
+  letter-spacing: .28em;
+  font-weight: 700;
+  color: rgba(255,255,255,.4);
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 16px;
+}
+.footer-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255,255,255,.5);
+  max-width: 280px;
+}
+.footer-col h4 {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 18px;
+}
+.footer-col a {
+  display: block;
+  font-size: 13px;
+  color: rgba(255,255,255,.7);
+  margin-bottom: 10px;
+  transition: color .15s;
+}
+.footer-col a:hover { color: #fff; }
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: rgba(255,255,255,.3);
+}
+
+/* ── WHATSAPP ── */
+.whatsapp-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 90;
+  background: #111;
+  color: #fff;
+  padding: 14px 20px;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  box-shadow: var(--shadow-strong);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: transform .18s, box-shadow .18s;
+}
+.whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 24px 54px rgba(0,0,0,.22); }
+.whatsapp-btn svg { width: 18px; height: 18px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .cat-grid { grid-template-columns: 1fr; }
+  .cat-block { min-height: 380px; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .dark-band { grid-template-columns: 1fr; }
+  .dark-band-img { height: 360px; }
+  .app-grid { grid-template-columns: repeat(3, 1fr); }
+  .instalador-inner { grid-template-columns: 1fr; gap: 40px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+}
+
+@media (max-width: 768px) {
+  .menu-toggle { display: flex; }
+  nav { display: none; position: absolute; top: 72px; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; padding: 16px 5.5%; box-shadow: var(--shadow-strong); gap: 0; }
+  nav.open { display: flex; }
+  .nav-item > a { padding: 13px 0; border-bottom: 1px solid var(--line); }
+  .dropdown { position: static; border: 0; box-shadow: none; opacity: 1; visibility: visible; transform: none; padding-left: 16px; display: none; }
+  .nav-item.open .dropdown { display: block; }
+  .btn-header { display: none; }
+  .hero { min-height: 80vh; }
+  .hero h1 { font-size: clamp(52px, 14vw, 80px); }
+  .cat-block { min-height: 300px; }
+  .qts-grid { grid-template-columns: 1fr; gap: 36px; }
+  .app-grid { grid-template-columns: repeat(2, 1fr); }
+  .form-row { grid-template-columns: 1fr; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+}
+
+@media (max-width: 480px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .hero-actions { flex-direction: column; align-items: center; }
+  .btn-outline-white, .btn-solid-white { width: 100%; justify-content: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="header">
+  <a href="#" class="logo">
+    IRONHUB
+    <small>Conexões Estruturais</small>
+  </a>
+
+  <nav id="nav">
+    <div class="nav-item">
+      <a href="#">Pergolados ▾</a>
+      <div class="dropdown">
+        <a href="#">Linha Industrial</a>
+        <a href="#">Linha Colonial</a>
+        <a href="#">Linha Hammock</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Conexões ▾</a>
+      <div class="dropdown">
+        <a href="#">Linha Industrial</a>
+        <a href="#">Linha Colonial</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Brise ▾</a>
+      <div class="dropdown">
+        <a href="#">Módulo Único</a>
+        <a href="#">Módulo Duplo</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Jardinagem ▾</a>
+      <div class="dropdown">
+        <a href="#">Cachepôs</a>
+        <a href="#">Portais</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Mobiliário ▾</a>
+      <div class="dropdown">
+        <a href="#">Bancos</a>
+        <a href="#">Mesas</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#">Acessórios</a>
+    </div>
+  </nav>
+
+  <a href="#orcamento" class="btn-header">Solicitar Orçamento</a>
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-img-placeholder">[ Foto principal do pergolado — será inserida pelo cliente ]</div>
+  </div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Sistemas Modulares para Áreas Externas</span>
+    <h1>Construa o espaço externo que você merece</h1>
+    <div class="hero-actions">
+      <a href="#produtos" class="btn-outline-white">Ver Pergolados</a>
+      <a href="#orcamento" class="btn-solid-white">Solicitar Orçamento</a>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORY BLOCKS -->
+<div class="cat-grid">
+  <div class="cat-block">
+    <div class="cat-block-bg">[ Imagem Pergolado ]</div>
+    <div class="cat-content">
+      <div class="cat-tag">Linha Industrial · Colonial · Hammock</div>
+      <h3>Pergolados</h3>
+      <p>Monte você mesmo o seu pergolado, simplesmente acoplando as nossas conexões. Monte, desmonte e expanda rapidamente.</p>
+      <span class="cat-cta">Ver modelos →</span>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-block-bg">[ Imagem Conexões ]</div>
+    <div class="cat-content">
+      <div class="cat-tag">Linha Industrial · Colonial</div>
+      <h3>Conexões</h3>
+      <p>Resistentes, elegantes e feitas para durar. Conexões para madeira 9x9, 14x14 cm com tratamento antiferrugem.</p>
+      <span class="cat-cta">Ver conexões →</span>
+    </div>
+  </div>
+  <div class="cat-block">
+    <div class="cat-block-bg">[ Imagem Brise ]</div>
+    <div class="cat-content">
+      <div class="cat-tag">Módulo Único · Módulo Duplo</div>
+      <h3>Brise</h3>
+      <p>Brise de aço com madeira, versáteis e fáceis de montar. Privacidade e design para áreas externas.</p>
+      <span class="cat-cta">Ver modelos →</span>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section" id="produtos" style="background:#fff; border-top: 1px solid var(--line);">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">Produtos em Destaque</div>
+      <h2>Os mais procurados</h2>
+    </div>
+    <a href="#" class="link-all">Ver todos os produtos</a>
+  </div>
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">[ Imagem do produto ]<br>Será inserida pelo cliente</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Conexões Individuais</div>
+        <h4>Conexão de Piso e Parede Uniflex</h4>
+        <p>Peça individual para fixação de pilares em piso ou parede.</p>
+        <div class="product-price">R$ 129,90</div>
+        <div class="product-actions">
+          <button class="btn-sm primary">Add ao Orçamento</button>
+          <button class="btn-sm">Detalhes</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">[ Imagem do produto ]<br>Será inserida pelo cliente</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Kits Completos para Pergolado</div>
+        <h4>Pergolados – Linha Iron Hub Colonial</h4>
+        <p>Kit reforçado para estruturas maiores com madeira 14x14 cm.</p>
+        <div class="product-price">Sob consulta</div>
+        <div class="product-actions">
+          <button class="btn-sm primary">Add ao Orçamento</button>
+          <button class="btn-sm">Detalhes</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">[ Imagem do produto ]<br>Será inserida pelo cliente</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Kits Completos para Pergolado</div>
+        <h4>Cama & Hammock – Linha Iron Hub Industrial</h4>
+        <p>Conjunto de conexões metálicas para madeira 9x9 cm.</p>
+        <div class="product-price">Sob consulta</div>
+        <div class="product-actions">
+          <button class="btn-sm primary">Add ao Orçamento</button>
+          <button class="btn-sm">Detalhes</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-img-placeholder">[ Imagem do produto ]<br>Será inserida pelo cliente</div>
+      </div>
+      <div class="product-body">
+        <div class="product-cat">Proteção e Manutenção</div>
+        <h4>Produto de Proteção para Madeira Externa</h4>
+        <p>Proteção para maior durabilidade da madeira em área externa.</p>
+        <div class="product-price">R$ 89,90</div>
+        <div class="product-actions">
+          <button class="btn-sm primary">Add ao Orçamento</button>
+          <button class="btn-sm">Detalhes</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUALITY TRUST SERVICE -->
+<div class="qts">
+  <div class="qts-grid">
+    <div class="qts-item">
+      <div class="qts-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+      </div>
+      <h3>Qualidade</h3>
+      <p>Conexões em aço com tratamento antiferrugem e pintura eletrostática, projetadas para durar anos em área externa.</p>
+    </div>
+    <div class="qts-item">
+      <div class="qts-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Confiança</h3>
+      <p>Sistema modular testado e aprovado em centenas de projetos residenciais e comerciais em todo o Brasil.</p>
+    </div>
+    <div class="qts-item">
+      <div class="qts-icon">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      </div>
+      <h3>Atendimento</h3>
+      <p>Orientação comercial e técnica para você escolher as peças certas para o seu projeto, do início ao fim.</p>
+    </div>
+  </div>
+</div>
+
+<!-- DARK BAND -->
+<div class="dark-band">
+  <div class="dark-band-text">
+    <div class="eyebrow">Sistema DIY para Pergolados</div>
+    <h2>Monte seu pergolado com mais previsibilidade</h2>
+    <p>Escolha o modelo, defina a medida, selecione kit completo ou apenas conexões e envie seu orçamento para receber orientação técnica.</p>
+    <a href="#orcamento" class="btn-solid-white" style="display:inline-flex; padding: 16px 28px; background:#fff; color:#111; font-size:12px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;">Solicitar Orçamento</a>
+  </div>
+  <div class="dark-band-img">[ Imagem de renders do produto — será inserida pelo cliente ]</div>
+</div>
+
+<!-- APPLICATIONS -->
+<section class="applications">
+  <div class="eyebrow">Quality, Trust and Service</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(42px,6vw,80px); line-height:.92; letter-spacing:.03em; color:var(--black); margin: 10px 0 0;">Aplicações para cada ambiente</h2>
+  <p style="color:var(--muted); margin-top: 14px; font-size:16px; max-width:600px;">Da área residencial ao uso comercial, a linha foi pensada para projetos externos modernos.</p>
+  <div class="app-grid">
+    <div class="app-item">Residências</div>
+    <div class="app-item">Áreas Gourmet</div>
+    <div class="app-item">Jardins</div>
+    <div class="app-item">Garagens</div>
+    <div class="app-item">Restaurantes</div>
+    <div class="app-item">Hotéis e Pousadas</div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-final-bg">[ Imagem de fundo — será inserida pelo cliente ]</div>
+  <div class="cta-final-content">
+    <div class="eyebrow">More is More</div>
+    <h2>Pronto para transformar seu espaço externo?</h2>
+    <p>Envie sua ideia, medida ou referência e receba uma orientação comercial.</p>
+    <a href="#orcamento" class="btn-solid-white">Solicitar Orçamento Agora</a>
+  </div>
+</section>
+
+<!-- INSTALADOR CERTIFICADO -->
+<section class="instalador" id="instalador">
+  <div class="instalador-inner">
+    <div class="instalador-text">
+      <div class="eyebrow">Parceiros Iron Hub</div>
+      <h2>Seja um Instalador Certificado Iron Hub</h2>
+      <p>Faça parte da nossa rede de instaladores certificados. Receba suporte técnico, materiais exclusivos e seja indicado para projetos na sua região.</p>
+    </div>
+    <div class="instalador-form">
+      <h3>Formulário de Inscrição</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome Completo *</label>
+          <input type="text" placeholder="Seu nome completo">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp *</label>
+          <input type="tel" placeholder="(11) 99999-9999">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Cidade *</label>
+          <input type="text" placeholder="Sua cidade">
+        </div>
+        <div class="form-group">
+          <label>Estado *</label>
+          <select>
+            <option value="">Selecione</option>
+            <option>SP</option><option>RJ</option><option>MG</option><option>RS</option>
+            <option>PR</option><option>SC</option><option>BA</option><option>GO</option>
+            <option>DF</option><option>CE</option><option>PE</option><option>AM</option>
+            <option>PA</option><option>MT</option><option>MS</option><option>ES</option>
+            <option>RN</option><option>PB</option><option>AL</option><option>SE</option>
+            <option>PI</option><option>MA</option><option>TO</option><option>RO</option>
+            <option>AC</option><option>RR</option><option>AP</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Profissão *</label>
+        <input type="text" placeholder="Ex: Marceneiro, Construtor, Arquiteto...">
+      </div>
+      <div class="form-group">
+        <label>Experiência com Montagem</label>
+        <textarea placeholder="Descreva sua experiência com montagem de estruturas de madeira ou pergolados..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Link para Portfólio (opcional)</label>
+        <input type="url" placeholder="https://...">
+      </div>
+      <button class="btn-form">Quero ser um Instalador Certificado</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo-text">IRONHUB</div>
+      <span class="footer-logo-sub">Conexões Estruturais</span>
+      <p class="footer-desc">Soluções modulares para pergolados, conexões metálicas e áreas externas residenciais e comerciais.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Produtos</h4>
+      <a href="#">Pergolados</a>
+      <a href="#">Conexões</a>
+      <a href="#">Brise</a>
+      <a href="#">Jardinagem</a>
+      <a href="#">Mobiliário</a>
+      <a href="#">Acessórios</a>
+    </div>
+    <div class="footer-col">
+      <h4>Empresa</h4>
+      <a href="#">Sobre nós</a>
+      <a href="#">Blog</a>
+      <a href="#">Catálogos</a>
+      <a href="#">Aplicações</a>
+      <a href="#instalador">Seja um Instalador</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contato</h4>
+      <a href="#">Solicitar Orçamento</a>
+      <a href="#">WhatsApp</a>
+      <a href="#">Privacidade</a>
+      <a href="#">Termos de Uso</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Iron Hub Conexões. Todos os direitos reservados.</span>
+    <span>ironhubconexoes.com.br</span>
+  </div>
+</footer>
+
+<!-- WHATSAPP -->
+<a href="https://wa.me/5511998899999" class="whatsapp-btn" target="_blank">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.025.507 3.93 1.395 5.6L0 24l6.585-1.326A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.002-1.368l-.359-.214-3.716.748.788-3.63-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
+  WhatsApp
+</a>
+
+<script>
+// Mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const nav = document.getElementById('nav');
+menuToggle.addEventListener('click', () => {
+  nav.classList.toggle('open');
+  menuToggle.textContent = nav.classList.contains('open') ? '✕' : '☰';
+});
+
+// Mobile submenu toggle
+if (window.innerWidth <= 768) {
+  document.querySelectorAll('.nav-item > a').forEach(link => {
+    link.addEventListener('click', (e) => {
+      const parent = link.parentElement;
+      if (parent.querySelector('.dropdown')) {
+        e.preventDefault();
+        parent.classList.toggle('open');
+      }
+    });
+  });
+}
+
+// Sticky header shadow
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('header');
+  header.style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(17,17,17,.1)' : 'none';
+});
+</script>
+
+</body>
+</html>
