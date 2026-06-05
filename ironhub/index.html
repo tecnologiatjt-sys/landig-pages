@@ -20,793 +20,333 @@
   --shadow: 0 18px 45px rgba(17,17,17,.08);
   --shadow-strong: 0 28px 70px rgba(17,17,17,.16);
 }
-
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
-body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--cream);
-  color: var(--ink);
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
+body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.5; -webkit-font-smoothing: antialiased; }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
 
+/* ── POPUP ── */
+.popup-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(17,17,17,.72);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(4px);
+}
+.popup-overlay.hidden { display: none; }
+.popup-box {
+  background: #fff;
+  max-width: 520px; width: 90%;
+  padding: 48px 40px 40px;
+  position: relative;
+  text-align: center;
+}
+.popup-close {
+  position: absolute; top: 16px; right: 20px;
+  font-size: 22px; cursor: pointer; color: var(--muted);
+  background: none; border: none; line-height: 1;
+}
+.popup-close:hover { color: var(--black); }
+.popup-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px; letter-spacing: .14em; color: var(--black);
+  margin-bottom: 4px;
+}
+.popup-logo small {
+  display: block; font-family: 'DM Sans', sans-serif;
+  font-size: 9px; letter-spacing: .3em; font-weight: 700;
+  color: var(--muted); text-transform: uppercase;
+}
+.popup-badge {
+  display: inline-block;
+  background: var(--black); color: #fff;
+  font-size: 11px; font-weight: 900; letter-spacing: .12em;
+  text-transform: uppercase; padding: 8px 18px;
+  margin: 16px 0 8px;
+}
+.popup-box h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(32px, 6vw, 52px);
+  line-height: .95; letter-spacing: .03em;
+  color: var(--black); margin-bottom: 12px;
+}
+.popup-box p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 24px; }
+.popup-form { display: flex; flex-direction: column; gap: 10px; }
+.popup-form input {
+  border: 1px solid var(--line); background: var(--soft);
+  padding: 14px 16px; font-size: 14px;
+  font-family: 'DM Sans', sans-serif; color: var(--black);
+  width: 100%;
+}
+.popup-form input:focus { outline: none; border-color: var(--black); background: #fff; }
+.popup-btn {
+  background: var(--black); color: #fff; border: none;
+  padding: 16px; font-size: 12px; font-weight: 900;
+  letter-spacing: .12em; text-transform: uppercase;
+  cursor: pointer; font-family: 'DM Sans', sans-serif;
+  transition: background .18s;
+}
+.popup-btn:hover { background: #333; }
+.popup-lgpd {
+  font-size: 11px; color: var(--muted); margin-top: 12px; line-height: 1.5;
+}
+.popup-skip {
+  display: block; margin-top: 16px; font-size: 12px;
+  color: var(--muted); cursor: pointer; text-decoration: underline;
+  text-underline-offset: 3px; background: none; border: none;
+  font-family: 'DM Sans', sans-serif;
+}
+.popup-skip:hover { color: var(--black); }
+
 /* ── HEADER ── */
 header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255,255,255,.96);
-  backdrop-filter: blur(18px);
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,.96); backdrop-filter: blur(18px);
   border-bottom: 1px solid var(--line);
-  padding: 0 5.5%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 72px;
-  gap: 24px;
+  padding: 0 5.5%; display: flex; align-items: center;
+  justify-content: space-between; min-height: 72px; gap: 24px;
 }
-
-.logo {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 26px;
-  letter-spacing: .12em;
-  color: var(--black);
-  white-space: nowrap;
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
+.logo-img { max-height: 46px; width: auto; display: block; }
+.logo-text {
+  font-family: 'Bebas Neue', sans-serif; font-size: 26px;
+  letter-spacing: .12em; color: var(--black); white-space: nowrap;
+  display: flex; flex-direction: column; line-height: 1;
 }
-.logo small {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 9px;
-  letter-spacing: .3em;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
+.logo-text small {
+  font-family: 'DM Sans', sans-serif; font-size: 9px;
+  letter-spacing: .3em; font-weight: 700; color: var(--muted); text-transform: uppercase;
 }
-
-nav {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-  flex: 1;
-  justify-content: center;
-}
-
-.nav-item {
-  position: relative;
-}
-
+nav { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
+.nav-item { position: relative; }
 .nav-item > a {
-  display: block;
-  padding: 10px 14px;
-  font-size: 12px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: .1em;
-  color: var(--black);
-  transition: background .18s;
-  white-space: nowrap;
+  display: block; padding: 10px 14px; font-size: 12px; font-weight: 800;
+  text-transform: uppercase; letter-spacing: .1em; color: var(--black);
+  transition: background .18s; white-space: nowrap;
 }
-.nav-item > a:hover {
-  background: linear-gradient(180deg, transparent 55%, rgba(216,198,163,.5) 0);
-}
-
+.nav-item > a:hover { background: linear-gradient(180deg, transparent 55%, rgba(216,198,163,.5) 0); }
 .dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-top: 2px solid var(--black);
-  min-width: 200px;
-  box-shadow: var(--shadow-strong);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(8px);
-  transition: all .2s ease;
-  z-index: 200;
+  position: absolute; top: 100%; left: 0; background: #fff;
+  border: 1px solid var(--line); border-top: 2px solid var(--black);
+  min-width: 200px; box-shadow: var(--shadow-strong);
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: all .2s ease; z-index: 200;
 }
-.nav-item:hover .dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-}
+.nav-item:hover .dropdown { opacity: 1; visibility: visible; transform: translateY(0); }
 .dropdown a {
-  display: block;
-  padding: 12px 18px;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--muted);
-  border-bottom: 1px solid var(--line);
-  transition: color .15s, background .15s;
+  display: block; padding: 12px 18px; font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+  border-bottom: 1px solid var(--line); transition: color .15s, background .15s;
 }
 .dropdown a:last-child { border-bottom: 0; }
 .dropdown a:hover { color: var(--black); background: var(--soft); }
-
 .btn-header {
-  background: var(--black);
-  color: #fff;
-  border: 0;
-  padding: 12px 20px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  white-space: nowrap;
-  cursor: pointer;
+  background: var(--black); color: #fff; border: 0; padding: 12px 20px;
+  font-size: 11px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  border-radius: 999px; white-space: nowrap; cursor: pointer;
   transition: transform .18s, box-shadow .18s;
 }
 .btn-header:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
-
 .menu-toggle {
-  display: none;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  width: 44px;
-  height: 44px;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 20px;
+  display: none; background: #fff; border: 1px solid var(--line);
+  border-radius: 999px; width: 44px; height: 44px;
+  align-items: center; justify-content: center; cursor: pointer; font-size: 20px;
 }
 
 /* ── HERO ── */
 .hero {
-  position: relative;
-  min-height: 90vh;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: hidden;
-  background: var(--black);
+  position: relative; min-height: 90vh;
+  display: flex; align-items: flex-end; justify-content: center;
+  overflow: hidden; background: var(--black);
 }
-
 .hero-bg {
-  position: absolute;
-  inset: 0;
+  position: absolute; inset: 0;
   background: linear-gradient(135deg, #1a1c18 0%, #2d2f29 50%, #3a3a2a 100%);
 }
 .hero-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(17,17,17,.15) 0%, rgba(17,17,17,.65) 100%);
 }
-
-/* placeholder for hero image */
 .hero-img-placeholder {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.85);
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; letter-spacing: .2em;
+  text-transform: uppercase; color: rgba(255,255,255,.85);
 }
-
 .hero-content {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  padding: 80px 5.5% 96px;
-  width: 100%;
+  position: relative; z-index: 2; text-align: center;
+  padding: 80px 5.5% 96px; width: 100%;
 }
-
 .hero-eyebrow {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--sand);
-  display: block;
-  margin-bottom: 24px;
+  font-size: 11px; font-weight: 900; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--sand); display: block; margin-bottom: 24px;
 }
-
 .hero h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(64px, 10vw, 140px);
-  line-height: .92;
-  letter-spacing: .02em;
-  color: #fff;
-  margin-bottom: 40px;
-  text-wrap: balance;
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(64px, 10vw, 140px);
+  line-height: .92; letter-spacing: .02em; color: #fff; margin-bottom: 40px; text-wrap: balance;
 }
-
-.hero-actions {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .btn-outline-white {
-  display: inline-flex;
-  align-items: center;
-  padding: 16px 32px;
-  border: 1.5px solid rgba(255,255,255,.75);
-  color: #fff;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
+  display: inline-flex; align-items: center; padding: 16px 32px;
+  border: 1.5px solid rgba(255,255,255,.75); color: #fff; font-size: 12px;
+  font-weight: 900; letter-spacing: .12em; text-transform: uppercase;
   transition: background .2s, border-color .2s;
 }
-.btn-outline-white:hover {
-  background: rgba(255,255,255,.12);
-  border-color: #fff;
-}
+.btn-outline-white:hover { background: rgba(255,255,255,.12); border-color: #fff; }
 .btn-solid-white {
-  display: inline-flex;
-  align-items: center;
-  padding: 16px 32px;
-  background: #fff;
-  color: var(--black);
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  transition: background .2s;
+  display: inline-flex; align-items: center; padding: 16px 32px;
+  background: #fff; color: var(--black); font-size: 12px;
+  font-weight: 900; letter-spacing: .12em; text-transform: uppercase; transition: background .2s;
 }
 .btn-solid-white:hover { background: var(--soft); }
 
-/* ── SECTION COMMONS ── */
+/* ── SECTIONS ── */
 .section { padding: 88px 5.5%; }
 .section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 20px;
-  margin-bottom: 40px;
-  gap: 20px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+  border-bottom: 1px solid var(--line); padding-bottom: 20px; margin-bottom: 40px; gap: 20px;
 }
 .section-head h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(42px, 6vw, 80px);
-  line-height: .92;
-  letter-spacing: .03em;
-  color: var(--black);
+  font-family: 'Bebas Neue', sans-serif; font-size: clamp(42px, 6vw, 80px);
+  line-height: .92; letter-spacing: .03em; color: var(--black);
 }
 .eyebrow {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: var(--muted);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
+  font-size: 11px; font-weight: 900; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--muted); display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
 }
-.eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 30px;
-  height: 1px;
-  background: currentColor;
-  opacity: .6;
-}
+.eyebrow::before { content: ''; display: inline-block; width: 30px; height: 1px; background: currentColor; opacity: .6; }
 .link-all {
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--black);
-  text-decoration: underline;
-  text-underline-offset: 5px;
-  white-space: nowrap;
+  font-size: 12px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--black); text-decoration: underline; text-underline-offset: 5px; white-space: nowrap;
 }
 
-/* ── CATEGORY BLOCKS (3 cols, Toja style) ── */
-.cat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: var(--line);
-}
-
+/* ── CATEGORY BLOCKS ── */
+.cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--line); }
 .cat-block {
-  position: relative;
-  min-height: 520px;
-  overflow: hidden;
-  background: var(--black);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 36px;
-  cursor: pointer;
+  position: relative; min-height: 520px; overflow: hidden; background: var(--black);
+  display: flex; flex-direction: column; justify-content: flex-end; padding: 36px; cursor: pointer;
 }
-
 .cat-block-bg {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.12);
-  font-weight: 700;
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+  font-size: 11px; letter-spacing: .2em; text-transform: uppercase;
+  color: rgba(255,255,255,.85); font-weight: 700;
 }
 .cat-block-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
+  content: ''; position: absolute; inset: 0;
   background: linear-gradient(180deg, rgba(17,17,17,.1) 0%, rgba(17,17,17,.72) 100%);
   transition: background .4s ease;
 }
-
-.cat-block:hover .cat-block-bg::after {
-  background: linear-gradient(180deg, rgba(17,17,17,.05) 0%, rgba(17,17,17,.82) 100%);
-}
-
-.cat-content {
-  position: relative;
-  z-index: 2;
-  transform: translateY(8px);
-  transition: transform .3s ease;
-}
+.cat-block:hover .cat-block-bg::after { background: linear-gradient(180deg, rgba(17,17,17,.05) 0%, rgba(17,17,17,.82) 100%); }
+.cat-content { position: relative; z-index: 2; transform: translateY(8px); transition: transform .3s ease; }
 .cat-block:hover .cat-content { transform: translateY(0); }
-
-.cat-tag {
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: .25em;
-  text-transform: uppercase;
-  color: var(--sand);
-  margin-bottom: 10px;
-}
-.cat-block h3 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 4vw, 56px);
-  line-height: .95;
-  letter-spacing: .04em;
-  color: #fff;
-  margin-bottom: 14px;
-}
-.cat-block p {
-  font-size: 14px;
-  color: rgba(255,255,255,.72);
-  line-height: 1.6;
-  margin-bottom: 20px;
-  max-width: 280px;
-}
+.cat-tag { font-size: 10px; font-weight: 900; letter-spacing: .25em; text-transform: uppercase; color: var(--sand); margin-bottom: 10px; }
+.cat-block h3 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 4vw, 56px); line-height: .95; letter-spacing: .04em; color: #fff; margin-bottom: 14px; }
+.cat-block p { font-size: 14px; color: rgba(255,255,255,.72); line-height: 1.6; margin-bottom: 20px; max-width: 280px; }
 .cat-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: #fff;
-  border-bottom: 1px solid rgba(255,255,255,.4);
-  padding-bottom: 4px;
-  opacity: 0;
-  transition: opacity .3s ease;
+  display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 900;
+  letter-spacing: .12em; text-transform: uppercase; color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,.4); padding-bottom: 4px;
+  opacity: 0; transition: opacity .3s ease;
 }
 .cat-block:hover .cat-cta { opacity: 1; }
 
-/* ── PRODUCTS GRID ── */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1px;
-  background: var(--line);
-}
-
-.product-card {
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  transition: transform .22s ease, box-shadow .22s ease;
-}
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: var(--shadow-strong);
-  z-index: 2;
-  position: relative;
-}
-
-.product-img {
-  height: 260px;
-  background: var(--soft);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid var(--line);
-}
-.product-img-placeholder {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: rgba(17,17,17,.45);
-  text-align: center;
-  padding: 20px;
-}
-.product-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform .35s ease;
-}
+/* ── PRODUCTS ── */
+.products-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); }
+.product-card { background: #fff; display: flex; flex-direction: column; transition: transform .22s ease, box-shadow .22s ease; }
+.product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-strong); z-index: 2; position: relative; }
+.product-img { height: 260px; background: var(--soft); overflow: hidden; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid var(--line); }
+.product-img-placeholder { font-size: 11px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; color: rgba(17,17,17,.45); text-align: center; padding: 20px; }
+.product-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .35s ease; }
 .product-card:hover .product-img img { transform: scale(1.05); }
-
 .product-body { padding: 22px 20px 24px; flex: 1; display: flex; flex-direction: column; }
-.product-cat {
-  font-size: 10px;
-  font-weight: 900;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 8px;
-}
-.product-body h4 {
-  font-size: 18px;
-  font-weight: 800;
-  line-height: 1.15;
-  letter-spacing: -.02em;
-  color: var(--black);
-  margin-bottom: 8px;
-}
-.product-body p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-  flex: 1;
-}
-.product-price {
-  font-size: 14px;
-  font-weight: 900;
-  color: var(--black);
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
+.product-cat { font-size: 10px; font-weight: 900; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+.product-body h4 { font-size: 18px; font-weight: 800; line-height: 1.15; letter-spacing: -.02em; color: var(--black); margin-bottom: 8px; }
+.product-body p { font-size: 13px; color: var(--muted); line-height: 1.6; flex: 1; }
+.product-price { font-size: 14px; font-weight: 900; color: var(--black); margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
 .product-actions { display: flex; gap: 8px; margin-top: 12px; }
-.btn-sm {
-  flex: 1;
-  padding: 10px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  text-align: center;
-  border: 1px solid var(--line);
-  background: #fff;
-  color: var(--black);
-  cursor: pointer;
-  transition: background .18s, border-color .18s;
-}
+.btn-sm { flex: 1; padding: 10px; font-size: 11px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; text-align: center; border: 1px solid var(--line); background: #fff; color: var(--black); cursor: pointer; transition: background .18s; }
 .btn-sm:hover { background: var(--soft); }
-.btn-sm.primary {
-  background: var(--black);
-  border-color: var(--black);
-  color: #fff;
-}
+.btn-sm.primary { background: var(--black); border-color: var(--black); color: #fff; }
 .btn-sm.primary:hover { background: #333; }
 
-/* ── QTS (Quality Trust Service) ── */
-.qts {
-  background: #fff;
-  padding: 88px 5.5%;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.qts-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
-}
+/* ── QTS ── */
+.qts { background: #fff; padding: 88px 5.5%; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.qts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; }
 .qts-item { display: flex; flex-direction: column; gap: 16px; }
-.qts-icon {
-  width: 52px;
-  height: 52px;
-  background: var(--black);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
+.qts-icon { width: 52px; height: 52px; background: var(--black); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .qts-icon svg { width: 24px; height: 24px; fill: none; stroke: #fff; stroke-width: 2; }
-.qts-item h3 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 38px;
-  letter-spacing: .04em;
-  color: var(--black);
-  line-height: 1;
-}
+.qts-item h3 { font-family: 'Bebas Neue', sans-serif; font-size: 38px; letter-spacing: .04em; color: var(--black); line-height: 1; }
 .qts-item p { font-size: 15px; color: var(--muted); line-height: 1.7; max-width: 300px; }
 
 /* ── DARK BAND ── */
-.dark-band {
-  background: var(--black);
-  padding: 96px 5.5%;
-  display: grid;
-  grid-template-columns: 1fr .85fr;
-  gap: 52px;
-  align-items: center;
-}
+.dark-band { background: var(--black); padding: 96px 5.5%; display: grid; grid-template-columns: 1fr .85fr; gap: 52px; align-items: center; }
 .dark-band-text .eyebrow { color: var(--sand); }
 .dark-band-text .eyebrow::before { background: var(--sand); }
-.dark-band-text h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(46px, 6vw, 88px);
-  line-height: .92;
-  letter-spacing: .03em;
-  color: #fff;
-  margin: 12px 0 20px;
-}
+.dark-band-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(46px, 6vw, 88px); line-height: .92; letter-spacing: .03em; color: #fff; margin: 12px 0 20px; }
 .dark-band-text p { font-size: 18px; color: rgba(255,255,255,.68); line-height: 1.7; margin-bottom: 32px; }
-.dark-band-img {
-  height: 480px;
-  background: #1f1f1f;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.85);
-  font-weight: 700;
-  overflow: hidden;
-}
+.dark-band-img { height: 480px; background: #1f1f1f; display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.85); font-weight: 700; overflow: hidden; }
 .dark-band-img img { width: 100%; height: 100%; object-fit: cover; }
 
 /* ── APPLICATIONS ── */
-.applications {
-  background: var(--soft);
-  padding: 88px 5.5%;
-}
-.app-grid {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 1px;
-  background: var(--line);
-  margin-top: 40px;
-}
-.app-item {
-  background: #fff;
-  padding: 28px 16px;
-  text-align: center;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--black);
-  min-height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .18s;
-  cursor: pointer;
-}
+.applications { background: var(--soft); padding: 88px 5.5%; }
+.app-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--line); margin-top: 40px; }
+.app-item { background: #fff; padding: 28px 16px; text-align: center; font-size: 11px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; color: var(--black); min-height: 100px; display: flex; align-items: center; justify-content: center; transition: background .18s; cursor: pointer; }
 .app-item:hover { background: var(--black); color: #fff; }
 
 /* ── CTA FINAL ── */
-.cta-final {
-  position: relative;
-  min-height: 560px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  overflow: hidden;
-  background: #1f211e;
-}
-.cta-final-bg {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.85);
-  font-weight: 700;
-}
-.cta-final-bg::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: rgba(17,17,17,.58);
-}
-.cta-final-content {
-  position: relative;
-  z-index: 2;
-  padding: 80px 5.5%;
-  max-width: 920px;
-}
+.cta-final { position: relative; min-height: 560px; display: flex; align-items: center; justify-content: center; text-align: center; overflow: hidden; background: #1f211e; }
+.cta-final-bg { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.85); font-weight: 700; }
+.cta-final-bg::after { content: ''; position: absolute; inset: 0; background: rgba(17,17,17,.58); }
+.cta-final-content { position: relative; z-index: 2; padding: 80px 5.5%; max-width: 920px; }
 .cta-final .eyebrow { color: var(--sand); justify-content: center; }
 .cta-final .eyebrow::before { background: var(--sand); }
-.cta-final h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(52px, 8vw, 110px);
-  line-height: .9;
-  letter-spacing: .03em;
-  color: #fff;
-  margin: 16px 0 20px;
-}
+.cta-final h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(52px, 8vw, 110px); line-height: .9; letter-spacing: .03em; color: #fff; margin: 16px 0 20px; }
 .cta-final p { font-size: 18px; color: rgba(255,255,255,.75); line-height: 1.65; margin-bottom: 36px; }
 
-/* ── INSTALADOR SECTION ── */
-.instalador {
-  background: var(--cream);
-  padding: 88px 5.5%;
-  border-top: 1px solid var(--line);
-}
-.instalador-inner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: start;
-}
+/* ── INSTALADOR ── */
+.instalador { background: var(--cream); padding: 88px 5.5%; border-top: 1px solid var(--line); }
+.instalador-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
 .instalador-text .eyebrow { color: var(--muted); }
-.instalador-text h2 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(42px, 5vw, 72px);
-  line-height: .92;
-  letter-spacing: .03em;
-  color: var(--black);
-  margin: 12px 0 18px;
-}
-.instalador-text p { font-size: 17px; color: var(--muted); line-height: 1.7; }
-
-.instalador-form {
-  background: #fff;
-  border: 1px solid var(--line);
-  padding: 36px;
-}
-.instalador-form h3 {
-  font-size: 15px;
-  font-weight: 900;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-  color: var(--black);
-  margin-bottom: 24px;
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
-}
+.instalador-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(42px, 5vw, 72px); line-height: .92; letter-spacing: .03em; color: var(--black); margin: 12px 0 18px; }
+.instalador-text .tagline { font-size: 17px; font-weight: 700; color: var(--black); margin-bottom: 16px; font-style: italic; }
+.instalador-text p { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 12px; }
+.instalador-text .highlight { font-weight: 700; color: var(--black); }
+.instalador-form { background: #fff; border: 1px solid var(--line); padding: 36px; }
+.instalador-form h3 { font-size: 15px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; color: var(--black); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 14px; }
-.form-group label {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-  border: 1px solid var(--line);
-  background: var(--soft);
-  padding: 12px 14px;
-  font-size: 14px;
-  font-family: 'DM Sans', sans-serif;
-  color: var(--black);
-  border-radius: 0;
-  width: 100%;
-  transition: border-color .18s;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--black);
-  background: #fff;
-}
+.form-group label { font-size: 11px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.form-group input, .form-group select, .form-group textarea { border: 1px solid var(--line); background: var(--soft); padding: 12px 14px; font-size: 14px; font-family: 'DM Sans', sans-serif; color: var(--black); border-radius: 0; width: 100%; transition: border-color .18s; }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--black); background: #fff; }
 .form-group textarea { min-height: 100px; resize: vertical; }
-.btn-form {
-  width: 100%;
-  padding: 16px;
-  background: var(--black);
-  color: #fff;
-  border: 0;
-  font-size: 12px;
-  font-weight: 900;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background .18s;
-  font-family: 'DM Sans', sans-serif;
-}
+.btn-form { width: 100%; padding: 16px; background: var(--black); color: #fff; border: 0; font-size: 12px; font-weight: 900; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: background .18s; font-family: 'DM Sans', sans-serif; }
 .btn-form:hover { background: #333; }
 
+/* ── FAQ ── */
+.faq { background: #fff; padding: 88px 5.5%; border-top: 1px solid var(--line); }
+.faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 60px; margin-top: 40px; }
+.faq-item { border-bottom: 1px solid var(--line); padding: 22px 0; }
+.faq-question { font-size: 15px; font-weight: 800; color: var(--black); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.faq-question span { font-size: 18px; color: var(--muted); transition: transform .2s; flex-shrink: 0; }
+.faq-item.open .faq-question span { transform: rotate(45deg); }
+.faq-answer { font-size: 14px; color: var(--muted); line-height: 1.7; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s ease; }
+.faq-item.open .faq-answer { max-height: 400px; padding-top: 12px; }
+
 /* ── FOOTER ── */
-footer {
-  background: var(--black);
-  padding: 56px 5.5% 36px;
-  color: rgba(255,255,255,.7);
-}
-.footer-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr;
-  gap: 40px;
-  padding-bottom: 40px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-  margin-bottom: 28px;
-}
-.footer-logo-text {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px;
-  letter-spacing: .12em;
-  color: #fff;
-}
-.footer-logo-sub {
-  font-size: 9px;
-  letter-spacing: .28em;
-  font-weight: 700;
-  color: rgba(255,255,255,.4);
-  text-transform: uppercase;
-  display: block;
-  margin-bottom: 16px;
-}
-.footer-desc {
-  font-size: 14px;
-  line-height: 1.7;
-  color: rgba(255,255,255,.5);
-  max-width: 280px;
-}
-.footer-col h4 {
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,.85);
-  margin-bottom: 18px;
-}
-.footer-col a {
-  display: block;
-  font-size: 13px;
-  color: rgba(255,255,255,.7);
-  margin-bottom: 10px;
-  transition: color .15s;
-}
+footer { background: var(--black); padding: 56px 5.5% 36px; color: rgba(255,255,255,.7); }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.08); margin-bottom: 28px; }
+.footer-logo-img { max-height: 48px; width: auto; display: block; margin-bottom: 12px; filter: brightness(0) invert(1); }
+.footer-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: .12em; color: #fff; }
+.footer-logo-sub { font-size: 9px; letter-spacing: .28em; font-weight: 700; color: rgba(255,255,255,.4); text-transform: uppercase; display: block; margin-bottom: 16px; }
+.footer-desc { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,.5); max-width: 280px; margin-bottom: 20px; }
+.footer-social { display: flex; gap: 12px; margin-top: 4px; }
+.footer-social a { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid rgba(255,255,255,.2); color: rgba(255,255,255,.7); font-size: 14px; transition: border-color .15s, color .15s; }
+.footer-social a:hover { border-color: #fff; color: #fff; }
+.footer-col h4 { font-size: 11px; font-weight: 900; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.85); margin-bottom: 18px; }
+.footer-col a { display: block; font-size: 13px; color: rgba(255,255,255,.7); margin-bottom: 10px; transition: color .15s; }
 .footer-col a:hover { color: #fff; }
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 12px;
-  color: rgba(255,255,255,.3);
-}
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(255,255,255,.3); }
 
 /* ── WHATSAPP ── */
-.whatsapp-btn {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 90;
-  background: #111;
-  color: #fff;
-  padding: 14px 20px;
-  font-size: 11px;
-  font-weight: 900;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  border-radius: 999px;
-  box-shadow: var(--shadow-strong);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: transform .18s, box-shadow .18s;
-}
+.whatsapp-btn { position: fixed; bottom: 24px; right: 24px; z-index: 90; background: #111; color: #fff; padding: 14px 20px; font-size: 11px; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; border-radius: 999px; box-shadow: var(--shadow-strong); display: flex; align-items: center; gap: 8px; transition: transform .18s, box-shadow .18s; }
 .whatsapp-btn:hover { transform: translateY(-3px); box-shadow: 0 24px 54px rgba(0,0,0,.22); }
 .whatsapp-btn svg { width: 18px; height: 18px; }
 
@@ -820,8 +360,8 @@ footer {
   .app-grid { grid-template-columns: repeat(3, 1fr); }
   .instalador-inner { grid-template-columns: 1fr; gap: 40px; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .faq-grid { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 768px) {
   .menu-toggle { display: flex; }
   nav { display: none; position: absolute; top: 72px; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; padding: 16px 5.5%; box-shadow: var(--shadow-strong); gap: 0; }
@@ -838,8 +378,8 @@ footer {
   .form-row { grid-template-columns: 1fr; }
   .footer-grid { grid-template-columns: 1fr; }
   .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .popup-box { padding: 36px 24px 28px; }
 }
-
 @media (max-width: 480px) {
   .products-grid { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; align-items: center; }
@@ -849,13 +389,31 @@ footer {
 </head>
 <body>
 
+<!-- POPUP -->
+<div class="popup-overlay" id="popup">
+  <div class="popup-box">
+    <button class="popup-close" onclick="closePopup()">✕</button>
+    <!-- Quando tiver a logo real: <img src="logo.png" alt="Iron Hub" style="max-height:48px; margin: 0 auto 12px;"> -->
+    <div class="popup-logo">IRONHUB<small>Conexões Estruturais</small></div>
+    <div class="popup-badge">🚚 Frete Grátis + 10% OFF na 1ª compra</div>
+    <h2>Sua primeira vantagem começa aqui</h2>
+    <p>Cadastre seu e-mail e receba o cupom de desconto exclusivo, novidades e ofertas especiais da Iron Hub.</p>
+    <div class="popup-form">
+      <input type="text" placeholder="Seu nome completo">
+      <input type="email" placeholder="Seu melhor e-mail">
+      <button class="popup-btn" onclick="closePopup()">Quero meu desconto de 10%</button>
+    </div>
+    <p class="popup-lgpd">Ao cadastrar, você concorda com nossa <a href="#" style="text-decoration:underline">Política de Privacidade</a>. Seus dados são protegidos conforme a LGPD e não serão compartilhados com terceiros.</p>
+    <button class="popup-skip" onclick="closePopup()">Não, obrigado</button>
+  </div>
+</div>
+
 <!-- HEADER -->
 <header id="header">
-  <a href="#" class="logo">
-    IRONHUB
-    <small>Conexões Estruturais</small>
+  <a href="#">
+    <!-- Logo real: <img src="LogoVFinalPNG.png" alt="Iron Hub" class="logo-img"> -->
+    <span class="logo-text">IRONHUB<small>Conexões Estruturais</small></span>
   </a>
-
   <nav id="nav">
     <div class="nav-item">
       <a href="#">Pergolados ▾</a>
@@ -893,11 +451,8 @@ footer {
         <a href="#">Mesas</a>
       </div>
     </div>
-    <div class="nav-item">
-      <a href="#">Acessórios</a>
-    </div>
+    <div class="nav-item"><a href="#">Acessórios</a></div>
   </nav>
-
   <a href="#orcamento" class="btn-header">Solicitar Orçamento</a>
   <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
 </header>
@@ -905,10 +460,10 @@ footer {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg">
-    <div class="hero-img-placeholder">[ Foto principal do pergolado — será inserida pelo cliente ]</div>
+    <div class="hero-img-placeholder">[ Foto principal — 1920 x 1080px mínimo ]</div>
   </div>
   <div class="hero-content">
-    <span class="hero-eyebrow">Sistemas Modulares para Áreas Externas</span>
+    <span class="hero-eyebrow">Sistemas Modulares para Áreas Externas e Internas</span>
     <h1>Construa o espaço externo que você merece</h1>
     <div class="hero-actions">
       <a href="#produtos" class="btn-outline-white">Ver Pergolados</a>
@@ -920,7 +475,7 @@ footer {
 <!-- CATEGORY BLOCKS -->
 <div class="cat-grid">
   <div class="cat-block">
-    <div class="cat-block-bg">[ Imagem Pergolado ]</div>
+    <div class="cat-block-bg">[ Imagem Pergolado — 800 x 1000px ]</div>
     <div class="cat-content">
       <div class="cat-tag">Linha Industrial · Colonial · Hammock</div>
       <h3>Pergolados</h3>
@@ -929,20 +484,20 @@ footer {
     </div>
   </div>
   <div class="cat-block">
-    <div class="cat-block-bg">[ Imagem Conexões ]</div>
+    <div class="cat-block-bg">[ Imagem Conexões — 800 x 1000px ]</div>
     <div class="cat-content">
       <div class="cat-tag">Linha Industrial · Colonial</div>
       <h3>Conexões</h3>
-      <p>Resistentes, elegantes e feitas para durar. Conexões para madeira 9x9, 14x14 cm com tratamento antiferrugem.</p>
+      <p>Resistentes, elegantes e feitas para durar. Conexões para madeira 9x9 e 14x14 cm com tratamento antiferrugem.</p>
       <span class="cat-cta">Ver conexões →</span>
     </div>
   </div>
   <div class="cat-block">
-    <div class="cat-block-bg">[ Imagem Brise ]</div>
+    <div class="cat-block-bg">[ Imagem Brise — 800 x 1000px ]</div>
     <div class="cat-content">
       <div class="cat-tag">Módulo Único · Módulo Duplo</div>
       <h3>Brise</h3>
-      <p>Brise de aço com madeira, versáteis e fáceis de montar. Privacidade e design para áreas externas.</p>
+      <p>Brise de aço com madeira, versáteis e fáceis de montar. Privacidade e design para áreas externas e internas.</p>
       <span class="cat-cta">Ver modelos →</span>
     </div>
   </div>
@@ -958,11 +513,8 @@ footer {
     <a href="#" class="link-all">Ver todos os produtos</a>
   </div>
   <div class="products-grid">
-
     <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">[ Imagem do produto ]<br>Será inserida pelo cliente</div>
-      </div>
+      <div class="product-img"><div class="product-img-placeholder">[ Foto produto — 600 x 600px ]</div></div>
       <div class="product-body">
         <div class="product-cat">Conexões Individuais</div>
         <h4>Conexão de Piso e Parede Uniflex</h4>
@@ -974,11 +526,8 @@ footer {
         </div>
       </div>
     </div>
-
     <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">[ Imagem do produto ]<br>Será inserida pelo cliente</div>
-      </div>
+      <div class="product-img"><div class="product-img-placeholder">[ Foto produto — 600 x 600px ]</div></div>
       <div class="product-body">
         <div class="product-cat">Kits Completos para Pergolado</div>
         <h4>Pergolados – Linha Iron Hub Colonial</h4>
@@ -990,11 +539,8 @@ footer {
         </div>
       </div>
     </div>
-
     <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">[ Imagem do produto ]<br>Será inserida pelo cliente</div>
-      </div>
+      <div class="product-img"><div class="product-img-placeholder">[ Foto produto — 600 x 600px ]</div></div>
       <div class="product-body">
         <div class="product-cat">Kits Completos para Pergolado</div>
         <h4>Cama & Hammock – Linha Iron Hub Industrial</h4>
@@ -1006,11 +552,8 @@ footer {
         </div>
       </div>
     </div>
-
     <div class="product-card">
-      <div class="product-img">
-        <div class="product-img-placeholder">[ Imagem do produto ]<br>Será inserida pelo cliente</div>
-      </div>
+      <div class="product-img"><div class="product-img-placeholder">[ Foto produto — 600 x 600px ]</div></div>
       <div class="product-body">
         <div class="product-cat">Proteção e Manutenção</div>
         <h4>Produto de Proteção para Madeira Externa</h4>
@@ -1022,33 +565,26 @@ footer {
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- QUALITY TRUST SERVICE -->
+<!-- QTS -->
 <div class="qts">
   <div class="qts-grid">
     <div class="qts-item">
-      <div class="qts-icon">
-        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-      </div>
+      <div class="qts-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div>
       <h3>Qualidade</h3>
-      <p>Conexões em aço com tratamento antiferrugem e pintura eletrostática, projetadas para durar anos em área externa.</p>
+      <p>Conexões em aço com tratamento antiferrugem e pintura eletrostática, fabricadas no Brasil para durar anos em área externa.</p>
     </div>
     <div class="qts-item">
-      <div class="qts-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      </div>
+      <div class="qts-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
       <h3>Confiança</h3>
-      <p>Sistema modular testado e aprovado em centenas de projetos residenciais e comerciais em todo o Brasil.</p>
+      <p>Sistema modular testado e aprovado em projetos residenciais e comerciais. Entregamos para todo o Brasil.</p>
     </div>
     <div class="qts-item">
-      <div class="qts-icon">
-        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
-      </div>
+      <div class="qts-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8zM23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
       <h3>Atendimento</h3>
-      <p>Orientação comercial e técnica para você escolher as peças certas para o seu projeto, do início ao fim.</p>
+      <p>Orientação técnica e comercial para escolher as peças certas. Manual de montagem incluso em todos os kits.</p>
     </div>
   </div>
 </div>
@@ -1061,14 +597,14 @@ footer {
     <p>Escolha o modelo, defina a medida, selecione kit completo ou apenas conexões e envie seu orçamento para receber orientação técnica.</p>
     <a href="#orcamento" class="btn-solid-white" style="display:inline-flex; padding: 16px 28px; background:#fff; color:#111; font-size:12px; font-weight:900; letter-spacing:.12em; text-transform:uppercase;">Solicitar Orçamento</a>
   </div>
-  <div class="dark-band-img">[ Imagem de renders do produto — será inserida pelo cliente ]</div>
+  <div class="dark-band-img">[ Imagem render produto — 800 x 960px ]</div>
 </div>
 
 <!-- APPLICATIONS -->
 <section class="applications">
   <div class="eyebrow">Qualidade, Confiança e Atendimento</div>
   <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(42px,6vw,80px); line-height:.92; letter-spacing:.03em; color:var(--black); margin: 10px 0 0;">Aplicações para cada ambiente</h2>
-  <p style="color:var(--muted); margin-top: 14px; font-size:16px; max-width:600px;">Da área residencial ao uso comercial, a linha foi pensada para projetos externos modernos.</p>
+  <p style="color:var(--muted); margin-top: 14px; font-size:16px; max-width:600px;">Da área residencial ao uso comercial, a linha foi pensada para projetos externos e internos modernos.</p>
   <div class="app-grid">
     <div class="app-item">Residências</div>
     <div class="app-item">Áreas Gourmet</div>
@@ -1081,9 +617,9 @@ footer {
 
 <!-- CTA FINAL -->
 <section class="cta-final">
-  <div class="cta-final-bg">[ Imagem de fundo — será inserida pelo cliente ]</div>
+  <div class="cta-final-bg">[ Imagem de fundo — 1920 x 1080px ]</div>
   <div class="cta-final-content">
-    <div class="eyebrow">More is More</div>
+    <div class="eyebrow">Transforme seu espaço</div>
     <h2>Pronto para transformar seu espaço externo?</h2>
     <p>Envie sua ideia, medida ou referência e receba uma orientação comercial.</p>
     <a href="#orcamento" class="btn-solid-white">Solicitar Orçamento Agora</a>
@@ -1096,27 +632,20 @@ footer {
     <div class="instalador-text">
       <div class="eyebrow">Parceiros Iron Hub</div>
       <h2>Seja um Instalador Certificado Iron Hub</h2>
-      <p>Faça parte da nossa rede de instaladores certificados. Receba suporte técnico, materiais exclusivos e seja indicado para projetos na sua região.</p>
+      <p class="tagline">Aumente sua renda instalando estruturas modulares com tecnologia em aço.</p>
+      <p>A IRON HUB está criando uma rede nacional de <span class="highlight">Instaladores Certificados</span>, profissionais habilitados a montar pergolados, Hammocks, brises, mobiliário e estruturas de jardinagem utilizando nossas conexões de alta resistência.</p>
+      <p>Se você é <span class="highlight">carpinteiro, marceneiro, paisagista, montador de estruturas, jardineiro profissional ou trabalha com áreas externas</span>, esta é a oportunidade perfeita para ampliar seu portfólio e conquistar novos clientes.</p>
+      <p>Preencha o formulário ao lado e entraremos em contato com você. Não perca essa oportunidade!</p>
     </div>
     <div class="instalador-form">
       <h3>Formulário de Inscrição</h3>
       <div class="form-row">
-        <div class="form-group">
-          <label>Nome Completo *</label>
-          <input type="text" placeholder="Seu nome completo">
-        </div>
-        <div class="form-group">
-          <label>WhatsApp *</label>
-          <input type="tel" placeholder="(11) 99999-9999">
-        </div>
+        <div class="form-group"><label>Nome Completo *</label><input type="text" placeholder="Seu nome completo"></div>
+        <div class="form-group"><label>WhatsApp *</label><input type="tel" placeholder="(11) 99999-9999"></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Cidade *</label>
-          <input type="text" placeholder="Sua cidade">
-        </div>
-        <div class="form-group">
-          <label>Estado *</label>
+        <div class="form-group"><label>Cidade *</label><input type="text" placeholder="Sua cidade"></div>
+        <div class="form-group"><label>Estado *</label>
           <select>
             <option value="">Selecione</option>
             <option>SP</option><option>RJ</option><option>MG</option><option>RS</option>
@@ -1129,19 +658,70 @@ footer {
           </select>
         </div>
       </div>
-      <div class="form-group">
-        <label>Profissão *</label>
-        <input type="text" placeholder="Ex: Marceneiro, Construtor, Arquiteto...">
-      </div>
-      <div class="form-group">
-        <label>Experiência com Montagem</label>
-        <textarea placeholder="Descreva sua experiência com montagem de estruturas de madeira ou pergolados..."></textarea>
-      </div>
-      <div class="form-group">
-        <label>Link para Portfólio (opcional)</label>
-        <input type="url" placeholder="https://...">
-      </div>
+      <div class="form-group"><label>Profissão *</label><input type="text" placeholder="Ex: Marceneiro, Construtor, Arquiteto..."></div>
+      <div class="form-group"><label>Experiência com Montagem</label><textarea placeholder="Descreva sua experiência com montagem de estruturas de madeira ou pergolados..."></textarea></div>
+      <div class="form-group"><label>Link para Portfólio (opcional)</label><input type="url" placeholder="https://..."></div>
       <button class="btn-form">Quero ser um Instalador Certificado</button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="eyebrow">Dúvidas Frequentes</div>
+  <h2 style="font-family:'Bebas Neue',sans-serif; font-size:clamp(42px,6vw,80px); line-height:.92; letter-spacing:.03em; color:var(--black); margin: 10px 0 0;">Perguntas frequentes</h2>
+  <div class="faq-grid">
+    <div>
+      <div class="faq-item">
+        <div class="faq-question">Onde a Iron Hub está localizada? <span>+</span></div>
+        <div class="faq-answer">Estamos localizados no Brasil, estado de São Paulo. Nosso showroom fica em Louveira, a 70 km de São Paulo e 30 km de Campinas, com acesso pelas rodovias Anhanguera e Bandeirantes.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">As conexões possuem garantia? <span>+</span></div>
+        <div class="faq-answer">Sim, oferecemos garantia de fábrica contra defeitos de fabricação em todos os nossos produtos.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Quais são as dimensões das conexões? <span>+</span></div>
+        <div class="faq-answer">Linha Industrial: conexões de perfil quadrado, seções 90x90 mm ou 140x140 mm. Linha Colonial: conexões de perfil cilíndrico, seções Ø 80–100 mm.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Eu mesmo consigo fazer a montagem? <span>+</span></div>
+        <div class="faq-answer">Sim! Nossos pergolados são modulares e projetados para encaixe simples. Todos os produtos acompanham manual de montagem ilustrado. No nosso YouTube (@ironhuboficial) há tutoriais em vídeo com o passo a passo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Em quanto tempo consigo montar o pergolado? <span>+</span></div>
+        <div class="faq-answer">O tempo varia de 2 a 4 horas dependendo do modelo. Você pode ir montando inclusive nas suas horas vagas, com apoio do manual e da nossa equipe via WhatsApp.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Posso contratar serviço de montagem? <span>+</span></div>
+        <div class="faq-answer">Sim. A Iron Hub possui uma rede de Instaladores Certificados. Consulte-nos para saber se sua região é atendida. O custo é pago à parte, conforme tabela para cada modelo.</div>
+      </div>
+    </div>
+    <div>
+      <div class="faq-item">
+        <div class="faq-question">A entrega é feita para todo o Brasil? <span>+</span></div>
+        <div class="faq-answer">Sim, nossos produtos são enviados para todo o Brasil. Basta informar seu CEP no momento da compra.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">A madeira está inclusa no kit? <span>+</span></div>
+        <div class="faq-answer">Não. A madeira não está incluída pois isso tornaria o frete extremamente caro. Indicamos no guia de madeiras as melhores opções para área externa e as medidas exatas para cada modelo.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Posso usar as conexões para estruturas cobertas? <span>+</span></div>
+        <div class="faq-answer">Sim! As conexões são resistentes a cargas leves como coberturas de toldos, telhas opacas ou translúcidas de materiais sintéticos, alumínio ou policarbonato alveolar.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Qual o comprimento máximo recomendado para a madeira? <span>+</span></div>
+        <div class="faq-answer">Recomendamos não exceder 3,00 m de vão para as vigas, e altura máxima de 2,60 m para as colunas verticais em qualquer modelo da linha Industrial, Colonial ou Hammock.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Como cuidar dos toldos e coberturas? <span>+</span></div>
+        <div class="faq-answer">Remova as lonas em ventos acima de 50 km/h. Para lavar, use detergente neutro e escova macia, enxágue bem e deixe secar ao sol. Não instale próximo a fontes de calor ou chamas.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Tenho outras dúvidas, como falo com vocês? <span>+</span></div>
+        <div class="faq-answer">Clique no botão WhatsApp na tela para falar diretamente com nossa equipe de suporte. Estamos prontos para ajudar!</div>
+      </div>
     </div>
   </div>
 </section>
@@ -1150,9 +730,21 @@ footer {
 <footer>
   <div class="footer-grid">
     <div>
+      <!-- Logo real: <img src="LogoVFinalPNG.png" alt="Iron Hub" class="footer-logo-img"> -->
       <div class="footer-logo-text">IRONHUB</div>
       <span class="footer-logo-sub">Conexões Estruturais</span>
-      <p class="footer-desc">Soluções modulares para pergolados, conexões metálicas e áreas externas residenciais e comerciais.</p>
+      <p class="footer-desc">Soluções modulares para pergolados, conexões metálicas e áreas externas residenciais e comerciais. Fabricado no Brasil.</p>
+      <div class="footer-social">
+        <a href="https://instagram.com/ironhuboficial" target="_blank" title="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://facebook.com/ironhuboficial" target="_blank" title="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+        </a>
+        <a href="https://youtube.com/@ironhuboficial" target="_blank" title="YouTube">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+        </a>
+      </div>
     </div>
     <div class="footer-col">
       <h4>Produtos</h4>
@@ -1170,12 +762,14 @@ footer {
       <a href="#">Catálogos</a>
       <a href="#">Aplicações</a>
       <a href="#instalador">Seja um Instalador</a>
+      <a href="#faq">Dúvidas Frequentes</a>
     </div>
     <div class="footer-col">
       <h4>Contato</h4>
-      <a href="#">Solicitar Orçamento</a>
-      <a href="#">WhatsApp</a>
-      <a href="#">Privacidade</a>
+      <a href="#orcamento">Solicitar Orçamento</a>
+      <a href="https://wa.me/5511998899999" target="_blank">WhatsApp</a>
+      <a href="mailto:contato@ironhubconexoes.com.br">contato@ironhubconexoes.com.br</a>
+      <a href="#">Política de Privacidade</a>
       <a href="#">Termos de Uso</a>
     </div>
   </div>
@@ -1192,33 +786,40 @@ footer {
 </a>
 
 <script>
-// Mobile menu toggle
+// Popup
+function closePopup() { document.getElementById('popup').classList.add('hidden'); }
+setTimeout(() => { document.getElementById('popup').classList.remove('hidden'); }, 1500);
+
+// Menu toggle
 const menuToggle = document.getElementById('menuToggle');
 const nav = document.getElementById('nav');
 menuToggle.addEventListener('click', () => {
   nav.classList.toggle('open');
   menuToggle.textContent = nav.classList.contains('open') ? '✕' : '☰';
 });
-
-// Mobile submenu toggle
 if (window.innerWidth <= 768) {
   document.querySelectorAll('.nav-item > a').forEach(link => {
     link.addEventListener('click', (e) => {
       const parent = link.parentElement;
-      if (parent.querySelector('.dropdown')) {
-        e.preventDefault();
-        parent.classList.toggle('open');
-      }
+      if (parent.querySelector('.dropdown')) { e.preventDefault(); parent.classList.toggle('open'); }
     });
   });
 }
 
-// Sticky header shadow
+// Sticky header
 window.addEventListener('scroll', () => {
-  const header = document.getElementById('header');
-  header.style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(17,17,17,.1)' : 'none';
+  document.getElementById('header').style.boxShadow = window.scrollY > 10 ? '0 4px 24px rgba(17,17,17,.1)' : 'none';
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-question').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
 });
 </script>
-
 </body>
 </html>
